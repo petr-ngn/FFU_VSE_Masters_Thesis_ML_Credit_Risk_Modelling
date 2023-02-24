@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <title>Default Prediction - Application form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      form {
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px #ccc;
+        max-width: 600px;
+      }
+      h1 {
+        text-align: center;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      } 
+      input[type="number"],
+      select {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 8px 0;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+        width: auto;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+	<body>
+		<form method="POST" action="/predict">
+			{% for variable in variables %}
+				{% if variable in categorical_features %}
+       		     		{% if variable == 'JOB' %}
+							<label for="JOB">JOB:</label>
+							<select name="JOB">
+								<option value=""></option>
+        						<option value="Mgr">Manager</option>
+       		 					<option value="Office">Office worker</option>
+      		  					<option value="ProfExe">Professional/Executive</option>
+ 					      		<option value="Sales">Sales</option>
+      		  					<option value="Self">Self-employed</option>
+     		   					<option value="Other">Other</option>
+    		  				</select><br>
+						{% elif variable == 'REASON' %}
+							<label for="REASON">REASON:</label>
+							<select name="REASON">
+								<option value=""></option>
+  		      					<option value="DebtCon">Debt Consolidation</option>
+      		  					<option value="HomeImp">Home Improvement</option>
+      						</select><br>
+						{% endif %}
+     		   		{% elif variable not in categorical_features %}
+						{% if variable == 'LOAN' %}
+							<label for="LOAN">LOAN:</label>
+							<input type="number" name="LOAN" min=0 placeholder="Enter the requested loan amount"><br>
+						{% elif variable == 'MORTDUE' %}
+							<label for="MORTDUE">MORTDUE:</label>
+							<input type="number" name="MORTDUE" min=0 placeholder="Enter the amount due on existing mortgage"><br>
+						{% elif variable =='VALUE' %}
+							<label for="VALUE">VALUE:</label>
+							<input type="number" name="VALUE" min=0 placeholder="Enter the current property value"><br>
+						{% elif variable == 'YOJ' %}
+							<label for="YOJ">YOJ:</label>
+							<input type="number" name="YOJ" min=0 placeholder="Enter the number years at present job" step = 0.1><br>
+  						{% elif variable == 'DEROG' %}
+							<label for="DEROG">DEROG:</label>
+  							<input type="number" name="DEROG" min=0 placeholder="Enter the number of major derogatory reports"><br>
+						{% elif variable == 'DELINQ' %}
+     							<label for="DELINQ">DELINQ:</label>
+     							<input type="number" name="DELINQ" min=0 placeholder="Enter the number of deliquent credit lines"><br>
+						{% elif variable == 'CLAGE' %}
+							<label for="CLAGE">CLAGE:</label>
+							<input type="number" name="CLAGE" min=0 placeholder="Enter the age of the oldest credit line (in months)" step = 0.0000001><br>
+						{% elif variable == 'NINQ' %}
+							<label for="NINQ">NINQ:</label>
+							<input type="number" name="NINQ" min=0 placeholder="Enter the number of recent credit inquiries"><br>
+						{% elif variable == 'CLNO' %}
+							<label for="CLNO">CLNO:</label>
+							<input type="number" name="CLNO" min=0 placeholder="Enter the number of credit lines"><br>
+						{% elif variable == 'DEBTINC' %}
+		      				<label for="DEBTINC">DEBTINC:</label>
+							<input type="number" name="DEBTINC" min=0 placeholder="Enter the debt-to-income ratio" step = 0.0000001><br>
+						{% endif %}
+        		{% endif %}
+    		{% endfor %}
+					<input type="submit" value="Submit">
+		</form>
+	</body>
+</html>
