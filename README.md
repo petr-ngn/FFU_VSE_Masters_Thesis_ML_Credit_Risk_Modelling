@@ -14,9 +14,9 @@
 ```
 ├── data     <- Data in raw form, transformed or data from third party sourcerss.
 │    │
-│    ├── interim.csv                  <- Preprocessed data after Optimal Binning and WoE tranformations.
-│    ├── preprocessed.csv      	      <- Final preprocessed data after Optimal Binning, WoE transformation and feature selection.
-│    ├── raw.csv                      <- The original, raw data input.
+│    ├── interim_dat.csv                  <- Preprocessed data after Optimal Binning and WoE tranformations.
+│    ├── preprocessed_dat.csv      	      <- Final preprocessed data after Optimal Binning, WoE transformation and feature selection.
+│    ├── raw_data.csv                      <- The original, raw data input.
 │
 ├── flask_app   <- Folder for web application form built using Flask.
 │    ├── inputs
