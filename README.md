@@ -1,4 +1,4 @@
-# Master Thesis "Application of Machine Learning Algorithms within Credit Risk Modelling"
+# Master's Thesis "Application of Machine Learning Algorithms within Credit Risk Modelling"
 
 
 - University: [Prague University of Economics and Prague (VŠE)](https://www.vse.cz/english/)
