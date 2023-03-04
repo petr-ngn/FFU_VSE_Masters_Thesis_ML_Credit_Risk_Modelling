@@ -59,7 +59,7 @@
 In order to run any Python file from this repository, you need to install particular libraries and their specific versions under which the Python file were built (Python version 3.10.9). All the requirements are located in `requirements.yml` file which you can use for creation of a new enviroment and installation of all the requirements from the `yml` file, in Anaconda:
 
 ```bash
-conda env create -n yourenviroment -f requirements.yml
+conda env create -n FFU_VSE_Masters_Thesis -f requirements.yml
 ```
 
 
