@@ -7,30 +7,24 @@ import os
 
 app = Flask(__name__)
 
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+input_file_path = os.path.join(current_dir, 'inputs', 'inputs_flask_app_dict.pkl')
+
+with open(input_file_path, 'rb') as f:
+    inputs = pickle.load(f)
+            
+
 @app.route('/')
-def home():
-    # Get the absolute path of the directory where this Python script is located
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Construct the absolute path to the input file relative to the current directory
-    input_file_path = os.path.join(current_dir, 'inputs', 'inputs_flask_app_dict.pkl')
-    with open(input_file_path, 'rb') as f:
-         inputs = pickle.load(f)
+def home():  
     features = inputs['final_features']
+    categorical_features = inputs['categorical_features']
+    return render_template('index.html', variables = features, categorical_features = categorical_features)
 
-    return render_template('index.html', variables = features, categorical_features = ['JOB','REASON'])
 
-
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods = ['POST'])
 def predict():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Construct the absolute path to the input file relative to the current directory
-    input_file_path = os.path.join(current_dir, 'inputs', 'inputs_flask_app_dict.pkl')
-    with open(input_file_path, 'rb') as ff:
-        inputs = pickle.load(ff)
-
-    woe_bins, woe_binning, model, threshold, final_features, input_df = (input for _, input in inputs.items())
+    woe_bins, woe_binning, model, threshold, final_features, categorical_features, input_df = (input for _, input in inputs.items())
 
     for feature in input_df.columns:
         if feature in final_features:
@@ -43,19 +37,20 @@ def predict():
         else:
             input_df.loc[0, feature] = np.nan
 
-    
-    data_ = woe_binning.transform(input_df, metric = 'woe')
+    input_df_woe = woe_binning.transform(input_df, metric = 'woe')
 
-    for feature in data_.columns:
+    for feature in input_df_woe.columns:
         na_woe = woe_bins.query('Variable == @feature and Bin == "Missing"')['WoE'].values[0]
-        data_.loc[input_df[feature].isna(), feature] = na_woe
+        input_df_woe.loc[input_df[feature].isna(), feature] = na_woe
 
-    data_ = data_[final_features]
-    prediction = model.predict_proba(data_)[:, 1]
+    input_df_woe_FINAL = input_df_woe[final_features]
+    pred_score = model.predict_proba(input_df_woe_FINAL)[:, 1]
 
-    result = ['Loan application denied' if i > threshold else 'Loan application approved' for i in prediction]
-    # Render the results page with the predicted probability
-    return render_template('results.html', prediction=round(prediction[0]*100,2), predicted_class = result[0])
+    result = ['Loan application denied' if i > threshold else 'Loan application approved' for i in pred_score]
+
+    return render_template('results.html',
+                           prediction = round(pred_score[0] * 100, 2),
+                           predicted_class = result[0])
 
 if __name__ == '__main__':
     app.run(debug = True)
