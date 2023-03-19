@@ -1,6 +1,5 @@
 <html>
   <head>
-    <title>Default Prediction - Application form</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -11,27 +10,31 @@
         margin: 20px auto;
         padding: 20px;
         background-color: #fff;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px #ccc;
+        border: 2px solid #ccc;
+        box-shadow: 1 0 10px #ccc;
         max-width: 600px;
       }
       h1 {
         text-align: center;
       }
+
       label {
         display: block;
+		margin-top: 5px;
         margin-bottom: 10px;
       } 
+
       input[type="number"],
       select {
-        padding: 12px 20px;
+        padding: 12px 25px;
         font-size: 16px;
         border: 2px solid #ccc;
-        border-radius: 4px;
+        border-radius: 3px;
         width: 100%;
         box-sizing: border-box;
         margin: 8px 0;
       }
+
       input[type="submit"] {
         background-color: #4CAF50;
         color: white;
@@ -42,17 +45,16 @@
         margin-top: 20px;
         width: auto;
       }
-      input[type="submit"]:hover {
-        background-color: #45a049;
-      }
     </style>
   </head>
 	<body>
+		<h1 style="text-align: center;">Default Prediction Application</h1>
+		<p style="text-align: center;"><b>Author:</b> Petr Nguyen </p>
 		<form method="POST" action="/predict">
 			{% for variable in variables %}
 				{% if variable in categorical_features %}
        		     		{% if variable == 'JOB' %}
-							<label for="JOB">JOB:</label>
+							<label for="JOB">Job occupancy:</label>
 							<select name="JOB">
 								<option value=""></option>
         						<option value="Mgr">Manager</option>
@@ -63,7 +65,7 @@
      		   					<option value="Other">Other</option>
     		  				</select><br>
 						{% elif variable == 'REASON' %}
-							<label for="REASON">REASON:</label>
+							<label for="REASON">Reason of loan application:</label>
 							<select name="REASON">
 								<option value=""></option>
   		      					<option value="DebtCon">Debt Consolidation</option>
@@ -72,39 +74,40 @@
 						{% endif %}
      		   		{% elif variable not in categorical_features %}
 						{% if variable == 'LOAN' %}
-							<label for="LOAN">LOAN:</label>
-							<input type="number" name="LOAN" min=0 placeholder="Enter the requested loan amount"><br>
+							<label for="LOAN">Requested loan amount:</label>
+							<input type="number" name="LOAN" min=0 required><br>
 						{% elif variable == 'MORTDUE' %}
-							<label for="MORTDUE">MORTDUE:</label>
-							<input type="number" name="MORTDUE" min=0 placeholder="Enter the amount due on existing mortgage"><br>
+							<label for="MORTDUE">Amount due on existing mortgage:</label>
+							<input type="number" name="MORTDUE" min=0><br>
 						{% elif variable =='VALUE' %}
-							<label for="VALUE">VALUE:</label>
-							<input type="number" name="VALUE" min=0 placeholder="Enter the current property value"><br>
+							<label for="VALUE">Current property value:</label>
+							<input type="number" name="VALUE" min=0><br>
 						{% elif variable == 'YOJ' %}
-							<label for="YOJ">YOJ:</label>
-							<input type="number" name="YOJ" min=0 placeholder="Enter the number years at present job" step = 0.1><br>
+							<label for="YOJ">Number of years at present job:</label>
+							<input type="number" name="YOJ" min=0 step = 0.1><br>
   						{% elif variable == 'DEROG' %}
-							<label for="DEROG">DEROG:</label>
-  							<input type="number" name="DEROG" min=0 placeholder="Enter the number of major derogatory reports"><br>
+							<label for="DEROG">Number of major derogatory reports:</label>
+  							<input type="number" name="DEROG" min=0><br>
 						{% elif variable == 'DELINQ' %}
-     							<label for="DELINQ">DELINQ:</label>
-     							<input type="number" name="DELINQ" min=0 placeholder="Enter the number of deliquent credit lines"><br>
+     							<label for="DELINQ">Number of delinquent credit lines:</label>
+     							<input type="number" name="DELINQ" min=0><br>
 						{% elif variable == 'CLAGE' %}
-							<label for="CLAGE">CLAGE:</label>
-							<input type="number" name="CLAGE" min=0 placeholder="Enter the age of the oldest credit line (in months)" step = 0.0000001><br>
+							<label for="CLAGE">Age of the oldest credit line (in months):</label>
+							<input type="number" name="CLAGE" min=0><br>
 						{% elif variable == 'NINQ' %}
-							<label for="NINQ">NINQ:</label>
-							<input type="number" name="NINQ" min=0 placeholder="Enter the number of recent credit inquiries"><br>
+							<label for="NINQ">Number of credit lines:</label>
+							<input type="number" name="NINQ" min=0><br>
 						{% elif variable == 'CLNO' %}
 							<label for="CLNO">CLNO:</label>
-							<input type="number" name="CLNO" min=0 placeholder="Enter the number of credit lines"><br>
+							<input type="number" name="CLNO" min=0><br>
 						{% elif variable == 'DEBTINC' %}
-		      				<label for="DEBTINC">DEBTINC:</label>
-							<input type="number" name="DEBTINC" min=0 placeholder="Enter the debt-to-income ratio" step = 0.0000001><br>
+		      				<label for="DEBTINC">Debt-to-income ratio:</label>
+							<input type="number" name="DEBTINC" min=0 step = 0.0000001><br>
 						{% endif %}
         		{% endif %}
     		{% endfor %}
 					<input type="submit" value="Submit">
 		</form>
+		<p style="text-align: center;"> &copy 2023 - Petr Nguyen | Faculty of Finance and Accounting, Prague University of Economics and Business</p>
 	</body>
 </html>
