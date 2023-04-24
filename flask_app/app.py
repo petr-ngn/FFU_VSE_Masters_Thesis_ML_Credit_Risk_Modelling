@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings("ignore")
 from flask import Flask, render_template, request
 import pandas as pd
 import pickle
@@ -7,6 +9,7 @@ import lime
 import dill
 import matplotlib
 import matplotlib.pyplot as plt
+
 
 app = Flask(__name__)
 
@@ -19,14 +22,6 @@ with open(input_file_path, 'rb') as f:
 
 with open(os.path.join(current_dir, 'inputs', 'explainer.pkl'), 'rb') as f:
     lime_explainer = dill.load(f)         
-
-
-@app.route('/')
-def home():  
-    features = inputs['final_features']
-    categorical_features = inputs['categorical_features']
-    return render_template('index.html', variables = features,
-                           categorical_features = categorical_features)
 
 
 def lime_plot(input, model):
@@ -68,7 +63,12 @@ def lime_plot(input, model):
                 format = 'png', bbox_inches = 'tight', dpi = 300, transparent = True)
     plt.close(fig)
 
-
+@app.route('/')
+def home():  
+    features = inputs['final_features']
+    categorical_features = inputs['categorical_features']
+    return render_template('index.html', variables = features,
+                           categorical_features = categorical_features)
 
 
 @app.route('/predict', methods = ['POST'])
