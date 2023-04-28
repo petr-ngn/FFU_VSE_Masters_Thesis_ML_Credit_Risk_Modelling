@@ -3,35 +3,39 @@
   <head>
     <title>Default Prediction - Result</title>
     <style>
-      /* Add some basic styles to make the page look nicer */
       body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #f5f5f5;
         color: #333;
       }
       h1 {
         text-align: center;
+        color: #4c4c4c;
         font-size: 2.5em;
         margin-top: 50px;
       }
       p {
         text-align: center;
+        color: #6c6c6c;
         font-size: 1.5em;
         margin-top: 50px;
       }
       .box {
-            background-color: #ccc;
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            text-decoration: none;
-            color: #333;
-        }
+        background-color: #ccc;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        color: #333;
+      }
+      img {
+        max-width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -40,8 +44,5 @@
     <p>The probability of default is <b>{{ prediction }}%</b></p>
 
     <img src="{{ url_for('static', filename='lime_explanation.png') }}" alt="LIME Explanation" width="50%" style="display: block; margin: auto;">
-
-
-    
   </body>
 </html>

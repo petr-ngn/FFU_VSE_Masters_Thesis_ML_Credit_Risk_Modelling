@@ -41,8 +41,7 @@ def lime_plot(input, model):
 
         return fig
     
-    matplotlib.rcParams['mathtext.fontset'] = 'stix'
-    matplotlib.rcParams['font.family'] = 'STIXGeneral'
+    plt.rcParams['font.family'] = 'Segoe UI'
     
     exp = lime_explainer.explain_instance(
                                         data_row = input,
@@ -57,6 +56,8 @@ def lime_plot(input, model):
     ax.spines['top'].set_visible(False)
     ax.set_ylabel('Feature', fontsize = 17)
     ax.set_xlabel('Contribution', fontsize = 17)
+    ax.tick_params(axis='x', labelsize=15)  # Set xticks fontsize
+    ax.tick_params(axis='y', labelsize=15)
     plt.title('')
 
     fig.savefig(os.path.join(current_dir, 'static', 'lime_explanation.png'),
@@ -77,7 +78,7 @@ def predict():
 
     for feature in input_df.columns:
         if feature in final_features:
-            if feature in ['REASON', 'JOB']:
+            if feature in categorical_features:
                 input_df.loc[0, feature] = str(request.form[feature]) if request.form[feature] else np.nan
             elif feature == 'LOAN':
                 input_df.loc[0, feature] = int(request.form[feature]) if request.form[feature] else np.nan
