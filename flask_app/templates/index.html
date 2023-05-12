@@ -3,73 +3,93 @@
   <head>
     <style>
       body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f5f5f5;
-        color: #333;
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+        color: #444;
       }
       form {
         margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        border: 2px solid #ccc;
-        box-shadow: 1px 0 10px #ccc;
-        max-width: 600px;
+        padding: 30px;
+        background-color: #ffffff;
+        border: 1px solid #e6e6e6;
+        box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
+        border-radius: 5px;
       }
       h1 {
         text-align: center;
-        color: #4c4c4c;
+        color: #333;
+        margin-bottom: 20px;
       }
-
+    
       p {
         text-align: center;
-        color: #6c6c6c;
+        color: #666;
+        margin-bottom: 30px;
       }
-
+    
       label {
         display: block;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        color: #4c4c4c;
+        margin-bottom: 5px;
+        color: #555;
       }
-
+    
       input[type="number"],
       select {
-        padding: 12px 25px;
+        padding: 10px 20px;
         font-size: 16px;
-        border: 2px solid #ccc;
-        border-radius: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
         width: 100%;
         box-sizing: border-box;
-        margin: 8px 0;
+        margin: 10px 0;
+        transition: border 0.3s;
       }
-
+    
       input[type="submit"] {
         background-color: #4CAF50;
         color: white;
-        padding: 10px 20px;
+        padding: 12px 30px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        margin-top: 20px;
+        margin-top: 30px;
         width: auto;
-        transition: all 0.3s;
+        transition: background-color 0.3s;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
       }
-
+    
       input[type="submit"]:hover {
-        background-color: #43a047;
+        background-color: #45a049;
       }
-
+    
       select:hover,
-      input[type="number"]:hover {
+      input[type="number"]:hover,
+      select:focus,
+      input[type="number"]:focus {
         border-color: #4CAF50;
       }
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    
+      .form-grid > div {
+        grid-column: span 1;
+      }
     </style>
+    
   </head>
   <body>
     <h1>Default Prediction Application</h1>
     <p><b>Author:</b> Petr Nguyen</p>
     <form method="POST" action="/predict">
+      <div class="form-grid">
 			{% for variable in variables %}
+      <div>
        		     	{% if variable == 'JOB' %}
 							<label for="JOB">Job occupancy:</label>
 							<select name="JOB">
@@ -119,7 +139,9 @@
 		      				<label for="DEBTINC">Debt-to-income ratio:</label>
 							<input type="number" name="DEBTINC" min=0 step = 0.0000001><br>
 						{% endif %}
+          </div>
     		{% endfor %}
+      </div>
 					<input type="submit" value="Submit">
 		</form>
 	</body>

@@ -31,13 +31,27 @@ def lime_plot(input, model):
         fig, ax = plt.subplots()
         vals = [i[1] for i in exp.as_list()][::-1]
         names = [i[0].split(' <=')[0].split('< ')[-1].split(' >')[0] for i in exp.as_list()][::-1]
-
+        feat_dict = {'JOB': 'Job occupancy',
+                    'REASON': 'Reason of loan application',
+                    'LOAN': 'Requested loan amount',
+                    'MORTDUE': 'Amount due on existing mortgage',
+                    'VALUE': 'Current property value',
+                    'YOJ': 'Years at present job',
+                    'DEROG': '# of major derogatory reports',
+                    'DELINQ': '# of delinquent credit lines',
+                    'CLAGE': 'Age of the oldest credit line',
+                    'NINQ': '# of recent credit inquiries',
+                    'CLNO': '# of credit lines',
+                    'DEBTINC': 'Debt-to-income ratio'}
+        names = [feat_dict[i] for i in names]
         colors = [pos_color if x > 0 else neg_color for x in vals]
         pos = np.arange(len(vals)) + .5
 
         ax.barh(pos, vals, align = 'center', color = colors)
         ax.set_yticks(pos)
         ax.set_yticklabels(names)
+
+        
 
         return fig
     
@@ -49,16 +63,20 @@ def lime_plot(input, model):
                                         )
 
     fig = custom_lime_plot(exp)
-    fig.set_size_inches(10, 6)
+    fig.set_size_inches(11, 9)
 
     ax = plt.gca()
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_ylabel('Feature', fontsize = 17)
-    ax.set_xlabel('Contribution', fontsize = 17)
-    ax.tick_params(axis='x', labelsize=15)  # Set xticks fontsize
-    ax.tick_params(axis='y', labelsize=15)
+    ax.set_ylabel('Feature', fontsize = 21, color = '#6c6c6c')
+    ax.set_xlabel('Contribution', fontsize = 21, color = '#6c6c6c')
+    ax.tick_params(axis='x', labelsize = 20)
+    ax.tick_params(axis='y', labelsize = 20)
+
     plt.title('')
+    for xticklabel, yticklabel in zip(ax.get_xticklabels(),ax.get_yticklabels()):
+            xticklabel.set_color('#6c6c6c')
+            yticklabel.set_color('#6c6c6c')
 
     fig.savefig(os.path.join(current_dir, 'static', 'lime_explanation.png'),
                 format = 'png', bbox_inches = 'tight', dpi = 300, transparent = True)
