@@ -2,7 +2,6 @@ import warnings
 warnings.filterwarnings("ignore")
 from flask import Flask, render_template, request
 import pandas as pd
-import pickle
 import numpy as np
 import os
 import lime
@@ -18,13 +17,12 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 input_file_path = os.path.join(current_dir, 'inputs', 'inputs_flask_app_dict.pkl')
 
 with open(input_file_path, 'rb') as f:
-    inputs = pickle.load(f)
+    inputs = dill.load(f)
 
-with open(os.path.join(current_dir, 'inputs', 'explainer.pkl'), 'rb') as f:
-    lime_explainer = dill.load(f)         
+lime_explainer = inputs["lime_explainer"]      
 
 
-def lime_plot(input, model):
+def lime_plot(input, model, lime_explainer):
 
     def custom_lime_plot(exp, pos_color: str = 'red', neg_color: str = 'green'):
 
@@ -116,7 +114,7 @@ def predict():
 
     result = ['Loan application denied' if i > threshold else 'Loan application approved' for i in pred_score]
 
-    lime_plot(input_df_woe_FINAL.iloc[0], model)
+    lime_plot(input_df_woe_FINAL.iloc[0], model, lime_explainer)
 
     return render_template('results.html',
                            prediction = round(pred_score[0] * 100, 2),
