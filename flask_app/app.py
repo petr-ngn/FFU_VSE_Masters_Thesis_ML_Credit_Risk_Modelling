@@ -90,7 +90,7 @@ def home():
 
 @app.route('/predict', methods = ['POST'])
 def predict():
-    woe_bins, woe_binning, model, threshold, final_features, categorical_features, input_df = (input for _, input in inputs.items())
+    woe_bins, woe_binning, model, threshold, final_features, categorical_features, input_df, *_ = (input for _, input in inputs.items())
 
     for feature in input_df.columns:
         if feature in final_features:
