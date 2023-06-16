@@ -9,4 +9,5 @@
 - Author: [Petr Nguyen](https://www.linkedin.com/in/petr-ngn)
 - Supervisor: [prof. Petr Teply](https://cz.linkedin.com/in/petr-teply-3b68529)
 - Opponent: [Ing. Ludek Palan](https://www.linkedin.com/in/ludek-palan-b830673/)
+- Thesis link: [https://vskp.vse.cz/english/90599](https://vskp.vse.cz/english/90599)
 
