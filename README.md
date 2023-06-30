@@ -13,3 +13,4 @@
 - Final grade: 1 (A - excellent)
 - Award for Excellent Master's Thesis ([ESOP](https://veda.vse.cz/souteze/soutez-esop/soutez-esop-2023-vyhodnoceni-souteze/esop-2023-diplomove-prace/)) - Faculty of Finance and Accounting, Prague University of Economics and Business (FFÚ VŠE)
 - Nomination for Excellent Master's Thesis (CADEF) - Association of Deans of Economic Faculties (TBD)
+- Web application deployment (_temporarily deployed on PythonAnywhere_): [http://ml-credit-risk-app-petrngn.pythonanywhere.com/](http://ml-credit-risk-app-petrngn.pythonanywhere.com/)
