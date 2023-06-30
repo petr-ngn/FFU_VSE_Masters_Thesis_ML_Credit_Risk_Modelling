@@ -11,4 +11,4 @@
 - Opponent: [Ludek Palan](https://www.linkedin.com/in/ludek-palan-b830673/)
 - Thesis link: [https://vskp.vse.cz/english/90599](https://vskp.vse.cz/english/90599)
 - Final grade: 1 (A - excellent)
-
+- Award for Excellent Master's Thesis ([ESOP](https://veda.vse.cz/souteze/soutez-esop/soutez-esop-2023-vyhodnoceni-souteze/esop-2023-diplomove-prace/)) - Faculty of Finance and Accounting, Prague University of Economics and Business (FFÚ VŠE)
